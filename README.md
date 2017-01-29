@@ -1,8 +1,8 @@
-# Git Repository for ``Collusion in Auctions with Constrained Bids"
-## by Sylvain Chassang and Juan Ortner
+## Git Repository for ``Collusion in Auctions with Constrained Bids"
+### by Sylvain Chassang and Juan Ortner
 
-## repository structure
+### 1. repository structure
 
-## requirements
+### 2. requirements
 
-## replication 
+### 3. replication 
