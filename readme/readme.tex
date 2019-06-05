@@ -1,0 +1,193 @@
+\documentclass[12pt,  letterpaper]{article}
+
+\usepackage{pstricks,fullpage, subfigure, epsfig,amsthm,amsmath,latexsym,amssymb,verbatim,url,setspace,multirow,fancyhdr,
+pdfsync,epstopdf,rotating,xfrac,footnote}
+
+
+
+\usepackage{xr}
+\externaldocument{minimumPricesOnlineAppendix}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=false,       % false: boxed links; true: coloed links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+\newcommand{\toprule}{\hline\hline}
+\newcommand{\midrule}{\hline}
+\newcommand{\bottomrule}{\hline\hline}
+\newcommand{\wti}[1]{\widetilde{\rule{0ex}{1.5ex}\smash{#1}}}
+\newcommand{\whl}[1]{\widehat{\rule{0ex}{1.5ex}\smash{#1}}}
+\newcommand{\wh}[1]{\widehat{#1}}
+
+
+\usepackage[round,comma]{natbib}
+\usepackage[bottom]{footmisc}
+%\bibliographystyle{apsr}
+\bibliographystyle{ecta}
+\citestyle{harvard}
+
+ 
+ 
+\title{{\sc{Replication Instructions for}} \\ Collusion in Auctions with Constrained Bids: \\ \Large{Theory and Evidence from Public Procurement}}
+
+
+\author{Sylvain Chassang  \\ New York University \and Juan Ortner\thanks{Chassang: \textsf{chassang@nyu.edu}, Ortner:  \textsf{jortner@bu.edu}.}   \\ Boston University}
+
+
+
+\date{ \today}
+
+\newcommand{\changeDate}{\text{October }28^{th}\text{ 2009}}
+
+\newcommand{\post}{\textsf{post}}
+\newcommand{\ante}{\textsf{ante}}
+\newcommand{\noi}{\noindent}
+\newcommand{\sgn}{\textsf{sgn}\,}
+\newcommand{\card}{\textrm{card}}
+\newcommand{\supp}{\textsf{supp}\,}
+\newcommand{\comp}{\textsf{comp}}
+\newcommand{\coll}[1]{\ol{#1}}
+
+\newcommand{\bmk}{\textsf{bmk}}
+
+\newcommand{\mquad}{\!\!\!\!\!\!\!\!\!\!\!}
+
+\newcommand{\hlineskip}{\noalign{\vskip 2pt}}
+
+\newcommand{\mcm}{\mathcal M}
+
+\newcommand{\mcl}[1]{\mathcal{#1}}
+
+\newcommand{\dotP}[1]{\left< #1\right>}
+
+\newcommand{\1}{\mathbf{1}}
+
+\newcommand{\esp}{\mathbb{E}}
+
+\newcommand{\ti}[1]{\tilde #1}
+
+\newcommand{\ul}[1]{\underline{#1}}
+
+\newcommand{\ol}[1]{\overline{#1}}
+
+\newcommand{\ora}[1]{\mathbf{#1}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\derr}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\newcommand{\intd}{\textrm d}
+
+\newcommand{\note}[1]{ \smallskip \textcolor{blue}{[note -- #1]} \smallskip }
+ 
+\newcommand{\prob}{\textrm{prob}}
+
+\newtheorem{lemma}{Lemma}
+
+\newtheorem{theorem}{Theorem}
+
+\newtheorem{fact}{Fact}
+
+\newtheorem{proposition}{Proposition}
+
+\newtheorem{definition}{Definition}
+
+\newtheorem{assumption}{Assumption}
+
+\newtheorem{example}{Example}
+
+\newtheorem{corollary}{Corollary}
+
+
+\newenvironment{proofApp}[1]{\noi \textbf{Proof of #1. }}{$\quad
+\blacksquare$\\}
+
+\renewenvironment{proof}{\noi \textbf{Proof.}}{$\quad
+\blacksquare$\\}
+
+\newenvironment{proofComment}[1]{\noi \textbf{Proof (#1): }}{$\quad
+\blacksquare$\\}
+
+\newenvironment{proofIntuition}{\noi \textbf{Intuition of the proof:
+}}{$\quad \blacksquare$\\}
+
+
+\newenvironment{rList}{\setcounter{Lcount}{0}
+\begin{list}{(\roman{Lcount}) } {\usecounter{Lcount}
+\setlength{\rightmargin}{\leftmargin}}}{\end{list}}
+
+\newcounter{Lcount}
+
+\graphicspath{{figs/}}
+
+ 
+\linespread{1.6}
+
+\begin{document}
+
+\maketitle
+
+\section{Stata files}
+
+The Stata files needed for replication are available in the \textsf{stata/} folder. They include: 
+
+
+\begin{onehalfspacing}
+\begin{itemize}
+\item \textsf{Data.dta}: raw auction data from the cities in the study
+\item \textsf{gdpimport.dta}: Japanese GDP data used as control in the regressions
+\item \textsf{do\_file.do}: computes a variety of new variables from \textsf{Data.dta}
+\item \textsf{regressions.do}: runs all the regressions in the paper and online appendix
+\end{itemize}
+\end{onehalfspacing}
+
+Data in \textsf{Data.dta} was scrapped from each of the cities' websites. The variables in this dataset are:
+
+\begin{onehalfspacing}
+\begin{itemize}
+\item \textsf{bid}: bid (in Yens) placed by each bidder in each auction. For some cities (i.e., Tsuchiura and Tsukubamirai), our dataset contains all bids (i.e. winning and losing) per auction. For the other cities, our dataset only contains the winning bid.  
+\item \textsf{day}: day of the month in which the auction was run
+\item \textsf{month}: month in which the auction was run
+\item \textsf{year}: year in which the auction was run
+\item \textsf{reserve\_price}: auction's reserve price, in Yens
+\item \textsf{num\_wins}: the number of times the bidder who submitted that bid won an auction
+\item \textsf{win\_percentile}: for each city, we calculated the distribution of the number of wins among bidders that participate in auctions in that city. Variable \textsf{win\_percentile} shows the bidder's percentile in this distribution. For cities in which the number of firms that won at least one auction is larger than 100, \textsf{win\_percentile} is a number between 0 and 100. For cities in which the number of bidders that won at least one auction is smaller than 100, \textsf{win\_percentile} is a number between 0 and the total number of winning bidders
+\item \textsf{cityXYZ}: indicator variable, which takes value of 1 if auction was run by city XYZ.
+\item \textsf{pid}: auction id for the city of Tsuchiura
+\item \textsf{winner}: indicator variable, taking value of 1 if bid was a winning bid
+\item \textsf{bidder\_id}: bidder id for the city of Tsuchiura
+\item \textsf{norm\_bid}: bid divided by reserve price
+\item \textsf{num\_participated}: number of auctions in which bidder participated -- available only for Tsuchiura and Tsukubamirai.
+\item \textsf{participation\_percentile}: percentile that bidder occupies in the distribution of overall participation -- available only for Tsuchiura and Tsukubamirai.     
+\item \textsf{cartel\_participation}: indicator variable, which takes a value of 1 if bidder is among the 25\% of bidders who participates more frequently -- available only for Tsuchiura and Tsukubamirai.
+\end{itemize}
+\end{onehalfspacing}
+
+Data in \textsf{gdpimport.dta} was downloaded from the website of Japan's Cabinet Office:\\ \url{http://www.esri.cao.go.jp/en/sna/sokuhou/sokuhou\_top.html}
+
+\section{Matlab files}
+The changes-in-changes estimates in Table 3 are computed using the files in the folder named \textsf{athey\_imbens/}.The folder \textsf{data/norm\_bid\_tsukuba\_ushiku\_truncated\_0.80} contains the data used to run the code. The files in that folder are:
+
+\begin{onehalfspacing}
+\begin{itemize}
+\item \textsf{Y00A.csv}: contains auctions with winning bids above $0.8$ run in control city Tsukuba prior to the policy change in Tsuchiura.
+\item \textsf{Y00B.csv}: contains auctions with winning bids above $0.8$ run in control city Ushiku prior to the policy change in Tsuchiura. 
+\item \textsf{Y01A.csv}: contains auctions with winning bids above $0.8$ run in Tsuchiura prior to the policy, for the exact same time period as in Tsukuba (file Y00A).
+\item \textsf{Y01A.csv}: contains auctions with winning bids above $0.8$ run in Tsuchiura prior to the policy, for the exact same time period as in Ushiku (file Y00B). 
+\item \textsf{Y10A.csv}: contains auctions with winning bids above $0.8$ run in Tsukuba in the two years after the policy change.
+\item \textsf{Y10B.csv}: contains auctions with winning bids above $0.8$ run in Ushiku in the two years after the policy change.
+\item \textsf{Y11.csv}: contains auctions with winning bids above $0.8$ run in Tsuchiura in the two years after the policy change. 
+\end{itemize}
+\end{onehalfspacing}
+
+
+Note that we do not merge the control data. This would bias results since the relative sample size of the pre and post period is different across control cities. Instead we separately run the algorithm of Athey and Imbens for each control city, and then average the corresponding counterfactual estimates. We report bootstrapped standard errors for our aggregated estimate. Matlab program \textsf{run\_athey\_imbens.m} runs the algorithm of Athey and Imbens for each control city, produces average estimates and bootstrapped standard errors. Results are saved in folder \textsf{Output/}.   
+\end{document}
+
+
